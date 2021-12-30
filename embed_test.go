@@ -42,3 +42,21 @@ func TestMultipelFiles(t *testing.T) {
 	c, _ := files.ReadFile("files/c.txt")
 	fmt.Println(string(c))
 }
+
+//akan mengambil semua files yang ber ekstension.txt
+//go:embed files/*.txt
+var path embed.FS
+
+func TestPathMatcher(t *testing.T) {
+	//membaca directory
+	dir, _ := path.ReadDir("files")
+	for _, entry := range dir {
+		//kalau bukan directory
+		if !entry.IsDir() {
+			//mengambil nama
+			fmt.Println(entry.Name())
+			content, _ := path.ReadFile("files/" + entry.Name())
+			fmt.Println("Content:", string(content))
+		}
+	}
+}
