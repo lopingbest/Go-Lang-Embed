@@ -1,4 +1,4 @@
-package Go_Lang_Embed
+package test
 
 import (
 	"embed"
@@ -9,14 +9,14 @@ import (
 	"testing"
 )
 
-//go:embed version.txt
+//go:embed ../files/version.txt
 var version string
 
 func TestString(t *testing.T) {
 	fmt.Println(version)
 }
 
-//go:embed google.png
+//go:embed ../files/google.png
 var logo []byte
 
 func TestByte(t *testing.T) {
@@ -49,8 +49,8 @@ var path embed.FS
 
 func TestPathMatcher(t *testing.T) {
 	//membaca directory
-	dir, _ := path.ReadDir("files")
-	for _, entry := range dir {
+	dirEntries, _ := path.ReadDir("files")
+	for _, entry := range dirEntries {
 		//kalau bukan directory
 		if !entry.IsDir() {
 			//mengambil nama
